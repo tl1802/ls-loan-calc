@@ -1,6 +1,9 @@
 def greater_than_0(input_str):
     while True:
         x = input(f'Enter the {input_str}')
+        if ('nan' in x.lower()) or ('inf' in x.lower()):
+            print('Do not use NaN or Inf')
+            continue
         try:
             x = float(x)
             if x <= 0 and input_str != 'APR: ':
