@@ -1,5 +1,3 @@
-import math
-
 def greater_than_0(input_str):
     while True:
         x = input(f'Enter the {input_str}')
@@ -7,7 +5,7 @@ def greater_than_0(input_str):
             x = float(x)
             if x <= 0 and input_str != 'APR: ':
                 print('Enter a number greater than 0')
-            elif x != 0 and input_str == 'APR: ':
+            elif input_str == 'APR: ' and x < 0:
                 print('Enter a number of at least 0')
             else:
                 return x
@@ -27,10 +25,15 @@ while apr < 0 :
 
 monthly_interest_rate = apr / 12 / 100
 
-print(f'Your principal loan is {loan_amount}, for {loan_duration_months} months at {apr} interest rate')
+print(f'Your loan amount is ${loan_amount}')
+print(f'Your loan duration is {loan_duration_months} months')
+print(f'Your APR is {apr}%')
+
+numerator = loan_amount * monthly_interest_rate
+denominator = (1 - ((1 + monthly_interest_rate) ** (-loan_duration_months)))
 
 try:
-    monthly_payment = (loan_amount * monthly_interest_rate) / (1 - ((1 + monthly_interest_rate) ** (-loan_duration_months)))
+    monthly_payment = numerator / denominator
 except ZeroDivisionError:
     monthly_payment = loan_amount / loan_duration_months
 
