@@ -5,35 +5,25 @@ def greater_than_0(input_str):
         x = input(f'Enter the {input_str}')
         try:
             x = float(x)
-            if x <= 0:
+            if x <= 0 and input_str != 'APR: ':
                 print('Enter a number greater than 0')
-            else:
-                return x
-        except ValueError:
-            print('Enter a number greater than 0')
-
-def at_least_0(input_apr):
-    while True:
-        x = input(f'Enter the {input_apr}')
-        try:
-            x = float(x)
-            if x < 0:
+            elif x != 0 and input_str == 'APR: ':
                 print('Enter a number of at least 0')
             else:
                 return x
         except ValueError:
-            print('Enter a number of at least 0')
+            print('Enter a number')
 
 loan_amount = greater_than_0('loan amount in dollars: ')
 
 loan_duration = greater_than_0('loan duration in years: ')
 loan_duration_months = loan_duration * 12
 
-apr = at_least_0('APR: ')
+apr = greater_than_0('APR: ')
 
 while apr < 0 :
     print('Enter a number of at least 0')
-    apr = at_least_0('APR: ')
+    apr = greater_than_0('APR: ')
 
 monthly_interest_rate = apr / 12 / 100
 
