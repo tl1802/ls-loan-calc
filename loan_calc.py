@@ -1,4 +1,4 @@
-def greater_than_0(input_str):
+def validate(input_str):
     while True:
         x = input(f'Enter the {input_str}')
         if ('nan' in x.lower()) or ('inf' in x.lower()):
@@ -15,31 +15,47 @@ def greater_than_0(input_str):
         except ValueError:
             print('Enter a number')
 
-loan_amount = greater_than_0('loan amount in dollars: ')
+def execute_calc():
+    loan_amount = validate('loan amount in dollars: ')
 
-loan_duration = greater_than_0('loan duration in years: ')
-loan_duration_months = loan_duration * 12
+    loan_duration = validate('loan duration in years: ')
+    loan_duration_months = loan_duration * 12
 
-apr = greater_than_0('APR: ')
+    apr = validate('APR: ')
 
-while apr < 0 :
-    print('Enter a number of at least 0')
-    apr = greater_than_0('APR: ')
+    while apr < 0 :
+        print('Enter a number of at least 0')
+        apr = validate('APR: ')
 
-monthly_interest_rate = apr / 12 / 100
+    monthly_interest_rate = apr / 12 / 100
 
-print(f'Your loan amount is ${loan_amount}')
-print(f'Your loan duration is {loan_duration_months} months')
-print(f'Your APR is {apr}%')
+    print()
+    print(f'-> Your loan amount is ${round(loan_amount, 2)}')
+    print(f'-> Your loan duration is {round(loan_duration_months)} months')
+    print(f'-> Your APR is {round(apr, 2)}%')
 
-numerator = loan_amount * monthly_interest_rate
-denominator = (1 - ((1 + monthly_interest_rate) ** (-loan_duration_months)))
+    numerator = loan_amount * monthly_interest_rate
+    denominator = (1 - ((1 + monthly_interest_rate) ** (-loan_duration_months)))
 
-try:
-    monthly_payment = numerator / denominator
-except ZeroDivisionError:
-    monthly_payment = loan_amount / loan_duration_months
+    try:
+        monthly_payment = numerator / denominator
+    except ZeroDivisionError:
+        monthly_payment = loan_amount / loan_duration_months
 
-monthly_payment = round(monthly_payment, 2)
+    monthly_payment = round(monthly_payment, 2)
 
-print(f'Your monthly payment is ${monthly_payment}')
+    print(f'-> Your monthly payment is ${monthly_payment}')
+    print()
+
+while True:
+    execute_calc()
+    reply = input('Would you like to use the calculator again? (y/n) ')
+    while reply.lower() not in ['y', 'n']:
+        print('Invalid input.')
+        reply = input('Would you like to use the calculator again? (y/n) ')
+    if reply.lower() == 'y':
+        print()
+        continue
+    else:
+        print('Stopping program')
+        break
